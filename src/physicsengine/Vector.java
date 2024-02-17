@@ -1,25 +1,25 @@
 package physicsengine;
 
 public class Vector {
-    private double x;
-    private double y;
+    private float x;
+    private float y;
 
-    public Vector(double x, double y) {
+    public Vector(float x, float y) {
         this.x = x;
         this.y = y;
     }
     
-    //no paramethers -- (0,0) vector
-    public Vector (){
+    // No parameters -- (0,0) vector
+    public Vector() {
         this.x = 0;
         this.y = 0;
     }
 
-    public double getX() {
+    public float getX() {
         return x;
     }
 
-    public double getY() {
+    public float getY() {
         return y;
     }
 
@@ -33,24 +33,24 @@ public class Vector {
         this.y -= other.y;
     }
 
-    public void multiply(double scalar) {
+    public void multiply(float scalar) {
         this.x *= scalar;
         this.y *= scalar;
     }
 
-    public double magnitude() {
-        return Math.sqrt(x * x + y * y);
+    public float magnitude() {
+        return (float) Math.sqrt(x * x + y * y);
     }
 
     public void normalize() {
-        double mag = magnitude();
+        float mag = magnitude();
         if (mag != 0) {
             this.x /= mag;
             this.y /= mag;
         }
     }
 
-    public double dot(Vector other) {
+    public float dot(Vector other) {
         return this.x * other.x + this.y * other.y;
     }
 

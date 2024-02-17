@@ -16,12 +16,15 @@ public class PhysicsEngine {
         v3 = new Vector();
         v4 = new Vector(5, 5);
 
-        Shape s1 = new Shape(v4, 5, 10, 3, 3);
-        Shape c1 = new Shape(v4, 5, 10, 3);
+
+        Circle c1 = new Circle(v2, 5, 5, 0, 0);
+        
+        System.out.println(c1.getX());
+        System.out.println(c1.getY());
 
         try {
             AppGameContainer app = new AppGameContainer(new Game());
-            app.setDisplayMode(800, 600, false); // .... ... .. ..
+            app.setDisplayMode(1366, 768, false); // .... ... .. ..
             app.setTargetFrameRate(60); 
             app.start();
         } catch (SlickException e) {

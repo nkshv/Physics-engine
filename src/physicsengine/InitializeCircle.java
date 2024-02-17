@@ -1,68 +1,19 @@
 package physicsengine;
-import org.newdawn.slick.*;
 
-public class Game extends BasicGame{
-   
-    private static Vector v1,v2,v3,v4,v5;
-    private static Circle c1,c2,c3,c4,c5;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
+
+public class InitializeCircle {
     
-    private Image a,b,c,d,e;
-   
     private float x1,x2,x3,x4,x5;
     private float y1,y2,y3,y4,y5;
-    
-    private int numberOfCircles = 0;
-    
+    private static Vector v1,v2,v3,v4,v5;
+    private static Circle c1,c2,c3,c4,c5;
     private float Yvelocity1,Yvelocity2,Yvelocity3,Yvelocity4,Yvelocity5;
     private float Xvelocity1, Xvelocity2, Xvelocity3, Xvelocity4,Xvelocity5;
-    
-    private Image[] Image_Array;
-    
-
-    @Override
-    public void render(GameContainer gc, Graphics g) throws SlickException{
-        
-        for(int i=0; i<numberOfCircles; i++){
-            Image_Array[i].draw(getX(i), getY(i));
-        }
-    }
-    
-    @Override
-    public void update(GameContainer gc, int t) throws SlickException {
-        float delta = t /60.f; // converts t to seconds
-
-        float[] yPositions = {y1, y2, y3, y4, y5};
-        float[] Yvelocities = {Yvelocity1, Yvelocity2, Yvelocity3, Yvelocity4, Yvelocity5};
-        
-        for (int i = 0; i < numberOfCircles; i++) {
-        float[] result = freefall(yPositions[i], Yvelocities[i], delta, Forces.EARTH_GRAVITY);
-            yPositions[i] = result[0];
-            Yvelocities[i] = result[1];
-    }
-        y1 = yPositions[0];
-        y2 = yPositions[1];
-        y3 = yPositions[2];
-        y4 = yPositions[3];
-        y5 = yPositions[4];
-
-        Yvelocity1 = Yvelocities[0];
-        Yvelocity2 = Yvelocities[1];
-        Yvelocity3 = Yvelocities[2];
-        Yvelocity4 = Yvelocities[3];
-        Yvelocity5 = Yvelocities[4];
-            }
-    @Override
-    public void init(GameContainer gc) throws SlickException{
-        a = initializeCircle(0, 0, 0, 0); // (X, Y, X-VELOCITY, Y-VELOCITY)
-        b = initializeCircle(300, 0, 0, 0);
-        c = initializeCircle(600, 0, 0, 0);
-        d = initializeCircle(900, 0, 0, 0);
-        
-       Image_Array = new Image[]{a, b, c, d, e};
-                
-    }
+    private static int numberOfCircles = 0;
    
-   private Image initializeCircle(float x, float y, float xv, float yv) {
+   public Image initializeCircle(float x, float y, float xv, float yv) {
     Image image = null;
     try {
         image = new Image("assets/ball.png");
@@ -148,21 +99,5 @@ public class Game extends BasicGame{
 }
 
    
-    public float[] freefall(float y, float Yvelocity, float delta, float GRAVITY) {
-        if (y >= 768 - 113) { // CHANGE VALUE LATER
-            Yvelocity *= -1;
-        }
-        Yvelocity += GRAVITY * delta;
 
-        y += Yvelocity * delta + 0.5f * GRAVITY * delta * delta;
-
-        if (y > 768 - 113) {
-            y = 768 - 113;
-        }
-        return new float[]{y, Yvelocity};
-    }
-    
-    public Game(){
-        super("Physics Engine");
-    }
 }

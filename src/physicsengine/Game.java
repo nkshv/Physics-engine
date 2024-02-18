@@ -30,33 +30,31 @@ public class Game extends BasicGame{
     @Override
     public void update(GameContainer gc, int t) throws SlickException {
         float delta = t /60.f; // converts t to seconds
-
+        float[] xPositions = {x1, x2, x3, x4, x5};
         float[] yPositions = {y1, y2, y3, y4, y5};
+        float[] Xvelocities = {Xvelocity1, Xvelocity2, Xvelocity3, Xvelocity4, Xvelocity5};
         float[] Yvelocities = {Yvelocity1, Yvelocity2, Yvelocity3, Yvelocity4, Yvelocity5};
         
+        // FREE FALL + HORIZONTAL MOVEMENT IMPLEMENTATION
         for (int i = 0; i < numberOfCircles; i++) {
-        float[] result = freefall(yPositions[i], Yvelocities[i], delta, Forces.EARTH_GRAVITY);
-            yPositions[i] = result[0];
-            Yvelocities[i] = result[1];
+            float[] result_y = freefall(yPositions[i], Yvelocities[i], delta, Forces.EARTH_GRAVITY);
+            float[] result_x = horizontalMove(xPositions[i], Xvelocities[i], delta);
+        
+            yPositions[i] = result_y[0]; Yvelocities[i] = result_y[1];
+            xPositions[i] = result_x[0]; Xvelocities[i] = result_x[1];
     }
-        y1 = yPositions[0];
-        y2 = yPositions[1];
-        y3 = yPositions[2];
-        y4 = yPositions[3];
-        y5 = yPositions[4];
-
-        Yvelocity1 = Yvelocities[0];
-        Yvelocity2 = Yvelocities[1];
-        Yvelocity3 = Yvelocities[2];
-        Yvelocity4 = Yvelocities[3];
-        Yvelocity5 = Yvelocities[4];
+        y1 = yPositions[0]; y2 = yPositions[1]; y3 = yPositions[2]; y4 = yPositions[3]; y5 = yPositions[4];
+        x1 = xPositions[0]; x2 = xPositions[1]; x3 = xPositions[2]; x4 = xPositions[3]; x5 = xPositions[4];
+        
+        Yvelocity1 = Yvelocities[0]; Yvelocity2 = Yvelocities[1]; Yvelocity3 = Yvelocities[2]; Yvelocity4 = Yvelocities[3]; Yvelocity5 = Yvelocities[4];
+        Xvelocity1 = Xvelocities[0]; Xvelocity2 = Xvelocities[1]; Xvelocity3 = Xvelocities[2]; Xvelocity4 = Xvelocities[3]; Xvelocity5 = Xvelocities[4];
             }
     @Override
     public void init(GameContainer gc) throws SlickException{
-        a = initializeCircle(0, 0, 0, 0); // (X, Y, X-VELOCITY, Y-VELOCITY)
-        b = initializeCircle(300, 0, 0, 0);
-        c = initializeCircle(600, 0, 0, 0);
-        d = initializeCircle(900, 0, 0, 0);
+        a = initializeCircle(0, 0, 100, 30); // (X, Y, X-VELOCITY, Y-VELOCITY)
+        b = initializeCircle(300, 0, 50, 0);
+        c = initializeCircle(600, 0, 25, 0);
+        d = initializeCircle(900, 0, 60, 0);
         
        Image_Array = new Image[]{a, b, c, d, e};
                 
@@ -113,7 +111,8 @@ public class Game extends BasicGame{
     numberOfCircles++;
     return image;
     }
-
+   
+    //change it to an array so that it returns every useful variable
     public float getY(int circleIndex) {
         switch (circleIndex) {
             case 0:
@@ -127,7 +126,7 @@ public class Game extends BasicGame{
             case 4:
                 return y5;
             default:
-                return Float.NaN; // Return NaN if index is out of bounds
+                return Float.NaN;
         }
     }
     public float getX(int circleIndex) {
@@ -143,7 +142,7 @@ public class Game extends BasicGame{
         case 4:
             return x5;
         default:
-            return Float.NaN; // Return NaN if index is out of bounds
+            return Float.NaN; 
     }
 }
 
@@ -160,6 +159,17 @@ public class Game extends BasicGame{
             y = 768 - 113;
         }
         return new float[]{y, Yvelocity};
+    }
+
+    public float[] horizontalMove(float x, float Xvelocity, float delta){
+        if (x >= 1253){
+             Xvelocity = Math.abs(Xvelocity) * -0.9f;
+        }
+        if (x < 0){
+            Xvelocity = Math.abs(Xvelocity) * 0.9f;
+        }
+        x += Xvelocity * delta;
+        return new float[]{x, Xvelocity};
     }
     
     public Game(){

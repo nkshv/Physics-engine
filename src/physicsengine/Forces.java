@@ -2,7 +2,7 @@ package physicsengine;
 
 public class Forces {
     
-    // Gravitational forces constants
+    //Gravitational forces constants
     public static final float EARTH_GRAVITY = 9.8f;
     public static final float MOON_GRAVITY = 1.62f;
     public static final float MARS_GRAVITY = 3.71f;

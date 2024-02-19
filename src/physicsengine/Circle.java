@@ -13,13 +13,17 @@ public class Circle {
 
     
     // Constructor for Circle
-    public Circle(Vector position, float mass, float radius, float Yv0, float Xv0) {
+    public Circle(Vector position, float mass, float radius, float Xv0, float Yv0) {
         this.position = position;
         this.mass = mass;
         this.radius = radius;
         this.area = (float) (Math.PI * radius * radius);
         this.Yv0 = Yv0;
         this.Xv0 = Xv0;
+    }
+    
+    public Circle(){
+        
     }
     
     

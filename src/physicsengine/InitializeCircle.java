@@ -95,9 +95,6 @@ public class InitializeCircle {
             return x5;
         default:
             return Float.NaN; // Return NaN if index is out of bounds
+        }
     }
-}
-
-   
-
 }
